@@ -4,7 +4,7 @@ DEPURAR: bool = True
 MINA: str = "M"
 FALLO: str = "X"
 VACIO: str = "-"
-ACIERTO: str = "O"
+ACIERTO_TAB: str = "O"
 TAMANIO_MAX: int = 10
 TAMANIO_DEF: int = 5
 
@@ -46,7 +46,7 @@ def jugar(tab, num_minas):
         posicion_y = int(input("Posición y?"))
         acierto = None
         if tab[posicion_x][posicion_y] == MINA:
-            tab[posicion_x][posicion_y] = ACIERTO
+            tab[posicion_x][posicion_y] = ACIERTO_TAB
             acierto = True
         else:
             tab[posicion_x][posicion_y] = FALLO
@@ -63,11 +63,11 @@ def jugar(tab, num_minas):
 
 
 def mostrar_tablero(tab):
-    ll: int = len(tab[0])
-    print("  ", " ".join([str(x) for x in range(ll)]))
-    for x in range(ll):
+    longitud_linea: int = len(tab[0])
+    print("  ", " ".join([str(x) for x in range(longitud_linea)]))
+    for x in range(longitud_linea):
         print(x, " ", end='')
-        for y in range(ll):
+        for y in range(longitud_linea):
             print(tab[x][y], "", end="")
         print("")
 

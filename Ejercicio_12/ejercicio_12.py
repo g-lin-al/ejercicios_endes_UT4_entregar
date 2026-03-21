@@ -27,6 +27,23 @@ def establecer_minas(tab):
     return num_minas
 
 
+def comprobar_mina(num_minas_total, posicion_x, posicion_y, tab):
+    fin_juego: bool = False
+    acierto = None
+    if tab[posicion_x][posicion_y] == MINA:
+        tab[posicion_x][posicion_y] = ACIERTO_TAB
+        acierto = True
+    else:
+        tab[posicion_x][posicion_y] = FALLO
+        acierto = False
+    if not acierto:
+        num_minas_total -= 1
+        print(num_minas_total) if DEPURAR else None
+    else:
+        fin_juego = True if MINA not in [i for item in tab for i in item] else False
+    return fin_juego
+
+
 def jugar(tab, num_minas):
     fin_juego: bool = False
     num_minas_total = num_minas * 2
@@ -44,22 +61,11 @@ def jugar(tab, num_minas):
 
         posicion_x = int(input("Posición x?"))
         posicion_y = int(input("Posición y?"))
-        acierto = None
-        if tab[posicion_x][posicion_y] == MINA:
-            tab[posicion_x][posicion_y] = ACIERTO_TAB
-            acierto = True
-        else:
-            tab[posicion_x][posicion_y] = FALLO
-            acierto = False
-        if not acierto:
-            num_minas_total -= 1
-            print(num_minas_total) if DEPURAR else None
-        else:
-            fin_juego = True if MINA not in [i for item in tab for i in item] else False
+        fin_juego = comprobar_mina(num_minas_total, posicion_x, posicion_y, tab)
     if fin_juego:
-        print("Has ganado")
+        print("¡¡Has ganado!!")
     else:
-        print("Has perdido")
+        print("Has perdido.")
 
 
 def mostrar_tablero(tab):
